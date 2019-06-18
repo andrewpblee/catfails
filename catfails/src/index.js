@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./style.css";
 import { css } from "@emotion/core";
@@ -25,7 +25,7 @@ class App extends React.Component {
     const gif = await blob.data.images.original;
     this.setState({
       gif: gif.url,
-      loading: true
+      loading: false
     });
   };
 
@@ -43,15 +43,18 @@ class App extends React.Component {
   render() {
     const { loading, gif } = this.state;
     return (
-      <Fragment>
-        <div className="container">
+      <div className="container">
+        <div className="title">
+          <h2>cat fails</h2>
+        </div>
+        <div className="gif-section">
           {loading ? (
             <div className="sweet-loading">
               <ScaleLoader
                 css={override}
                 sizeUnit={"px"}
                 size={150}
-                color={"#ff6f61"}
+                color={"#02182b"}
                 loading={loading}
               />
             </div>
@@ -59,8 +62,8 @@ class App extends React.Component {
             <img src={gif} alt="cute cat" />
           )}
         </div>
-        <button onClick={this.onButtonclick}>New Fail</button>
-      </Fragment>
+        <button onClick={this.onButtonclick}>😻</button>
+      </div>
     );
   }
 }
