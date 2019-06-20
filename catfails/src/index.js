@@ -1,15 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./style.css";
-import { css } from "@emotion/core";
 import { ScaleLoader } from "react-spinners";
 
 const apiKey = "QYgzjYAhVqhzr08lQkKtnjYGXadZx7I4";
-
-const override = css`
-  display: block;
-  margin: 0 auto;
-`;
 
 class App extends React.Component {
   state = {
@@ -18,15 +12,19 @@ class App extends React.Component {
   };
 
   getGif = async () => {
-    const response = await fetch(
-      `http://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=catfail`
-    );
-    const blob = await response.json();
-    const gif = await blob.data.images.original;
-    this.setState({
-      gif: gif.url,
-      loading: false
-    });
+    try {
+      const response = await fetch(
+        `http://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=catfail`
+      );
+      const blob = await response.json();
+      const gif = await blob.data.images.fixed_height;
+      this.setState({
+        gif: gif.url,
+        loading: false
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   onButtonclick = async () => {
@@ -51,18 +49,17 @@ class App extends React.Component {
           {loading ? (
             <div className="sweet-loading">
               <ScaleLoader
-                css={override}
                 sizeUnit={"px"}
                 size={150}
-                color={"#02182b"}
+                color={"#3d518c"}
                 loading={loading}
               />
             </div>
           ) : (
             <img src={gif} alt="cute cat" />
           )}
+          <button onClick={this.onButtonclick}>Another Fail</button>
         </div>
-        <button onClick={this.onButtonclick}>😻</button>
       </div>
     );
   }
