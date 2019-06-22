@@ -14,7 +14,7 @@ class App extends React.Component {
   getGif = async () => {
     try {
       const response = await fetch(
-        `http://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=catfail`
+        `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=catfail`
       );
       const blob = await response.json();
       const gif = await blob.data.images.fixed_height;
